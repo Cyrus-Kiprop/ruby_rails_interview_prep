@@ -20,10 +20,15 @@ end
 # the retry key word in erro handling
 
 # consider the following the begin end statement
+i = 0
+
 begin
   i += 1
   puts "this is the value of #{i}"
-rescue NoMethodError => e
+  
+  raise RuntimeError 
+
+rescue RuntimeError => e
   puts "#{$!} :: #{$@}"
   retry if i < 3
 end
