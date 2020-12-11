@@ -4,6 +4,41 @@
 # this is achieved through the use of a pattern such as the strategy pattern.
 
 
+# consider this scenario
+
+class UsageFileParser
+  def initialize(client, usage_file)
+    @client = client
+    @usage_file = usage_file
+  end
+
+  def parse
+    case @client.usage_file_format
+      when :xml
+        parse_xml
+      when :csv
+        parse_csv
+    end
+
+    @client.last_parse = Time.now
+    @client.save!
+  end
+
+  private
+
+  def parse_xml
+    # parse xml
+  end
+
+  def parse_csv
+    # parse csv
+  end
+end
+
+
+# this can be optimised using the following strategical approach
+
+
 class UsageFileParser
   def initialize(client, parser)
     @client = client
@@ -19,20 +54,13 @@ end
 
 class XmlParser
   def parse(usage_file)
-    p "parse xml"
+    # parse xml
   end
 end
 
 class CsvParser
   def parse(usage_file)
-    p 'parse csv'
+    # parse csv
   end
 end
-
-xml = XmlParser.new
-csv = CsvParser.new
-
-b = UsageFileParser.new("kiprop", xml)
-
-p b.parse("kiprop")
 
